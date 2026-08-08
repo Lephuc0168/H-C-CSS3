@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <title>HỒ CÁ CSS3</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hồ cá - Bài tập môn Web">
+    <style>
+        /* ===== RESET & BODY ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0a2e 0%, #1a1a4e 40%, #0d2137 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        /* ===== TITLE ===== */
+        h1 {
+            color: #fff; font-size: 2.2em; margin-bottom: 25px; text-align: center;
+            text-shadow: 0 0 20px rgba(0,200,255,0.6), 0 0 40px rgba(0,200,255,0.3);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 20px rgba(0,200,255,0.6), 0 0 40px rgba(0,200,255,0.3); }
+            100% { text-shadow: 0 0 30px rgba(0,255,200,0.8), 0 0 60px rgba(0,255,200,0.4); }
+        }
+
+        /* ===== POND CONTAINER ===== */
+        #pond {
+            position: relative; width: 900px; height: 500px;
+            background: linear-gradient(180deg, #064273 0%, #0a2e5c 30%, #061a33 70%, #0a1628 100%);
+            border-radius: 20px; overflow: hidden;
+            border: 5px solid #2a6090;
+            box-shadow: 0 0 30px rgba(0,150,255,0.3), inset 0 0 60px rgba(0,50,100,0.5);
+        }
+
+        /* ===== WATER SHIMMER ===== */
+        #pond::before {
+            content: ''; position: absolute; top: 0; left: -50%;
+            width: 200%; height: 100%; z-index: 10; pointer-events: none;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent, transparent 80px,
+                rgba(255,255,255,0.03) 80px, rgba(255,255,255,0.03) 160px
+            );
+            animation: shimmer 8s linear infinite;
+        }
+        @keyframes shimmer { 0% { transform: translateX(0); } 100% { transform: translateX(25%); } }
+
+        /* Light rays */
+        .light-ray {
+            position: absolute; top: -20px; width: 80px; height: 120%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.08), transparent 70%);
+            transform: skewX(-15deg); z-index: 9; pointer-events: none;
+            animation: rayPulse 4s ease-in-out infinite alternate;
+        }
+        .light-ray:nth-child(1) { left: 100px; animation-delay: 0s; }
+        .light-ray:nth-child(2) { left: 350px; width: 60px; animation-delay: 1.5s; }
+        .light-ray:nth-child(3) { left: 600px; width: 90px; animation-delay: 0.8s; }
+        @keyframes rayPulse { 0% { opacity: 0.5; } 100% { opacity: 1; } }
+
+        /* ===== SAND FLOOR ===== */
+        .sand {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 60px;
+            background: linear-gradient(180deg, #3d2b1f 0%, #5a3d2b 40%, #6b4c3b 100%);
+            border-radius: 0 0 15px 15px; z-index: 2;
+        }
+        .sand::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 15px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.05), transparent);
+        }
+
+        /* ===== ROCKS ===== */
+        .rock {
+            position: absolute; bottom: 40px; z-index: 3;
+            background: radial-gradient(ellipse at 30% 30%, #5a5a5a, #2a2a2a);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        }
+        .rock.r1 { left: 50px; width: 50px; height: 35px; }
+        .rock.r2 { left: 750px; width: 65px; height: 40px; }
+        .rock.r3 { left: 400px; width: 40px; height: 28px; }
+
+        /* ===== PLANTS (seaweed) ===== */
+        .plant {
+            position: absolute; bottom: 50px; z-index: 3; width: 20px;
+        }
+        .plant .leaf {
+            width: 14px; height: 60px; border-radius: 50% 50% 0 0;
+            background: linear-gradient(to top, #0a5c2a, #15a34a);
+            position: absolute; bottom: 0; transform-origin: bottom center;
+            animation: sway 3s ease-in-out infinite;
+        }
+        .plant .leaf:nth-child(2) { height: 75px; left: 8px; animation-delay: 0.5s; background: linear-gradient(to top, #0a5c2a, #22c55e); }
+        .plant .leaf:nth-child(3) { height: 50px; left: -6px; animation-delay: 1s; }
+        .plant.p1 { left: 80px; }
+        .plant.p2 { left: 200px; }
+        .plant.p3 { left: 700px; }
+        .plant.p4 { left: 820px; }
+        .plant.p3 .leaf { background: linear-gradient(to top, #2d5a27, #4ade80); height: 80px; }
+        .plant.p4 .leaf { height: 45px; }
+        @keyframes sway {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        /* ===== BUBBLES ===== */
+        .bubble {
+            position: absolute; border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4), rgba(255,255,255,0.1));
+            border: 1px solid rgba(255,255,255,0.2);
+            z-index: 8; animation: rise linear infinite;
+        }
+        .bubble.b1 { width: 8px; height: 8px; left: 120px; bottom: 60px; animation-duration: 6s; }
+        .bubble.b2 { width: 5px; height: 5px; left: 300px; bottom: 60px; animation-duration: 8s; animation-delay: 2s; }
+        .bubble.b3 { width: 10px; height: 10px; left: 550px; bottom: 60px; animation-duration: 7s; animation-delay: 1s; }
+        .bubble.b4 { width: 6px; height: 6px; left: 700px; bottom: 60px; animation-duration: 9s; animation-delay: 3s; }
+        .bubble.b5 { width: 7px; height: 7px; left: 450px; bottom: 60px; animation-duration: 5s; animation-delay: 4s; }
+        .bubble.b6 { width: 4px; height: 4px; left: 830px; bottom: 60px; animation-duration: 7s; animation-delay: 2.5s; }
+        @keyframes rise {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-420px) translateX(20px); opacity: 0; }
+        }
+
+        /* ===== FISH (pure CSS) ===== */
+        .fish {
+            position: absolute; z-index: 5;
+        }
+        .fish-body {
+            position: relative; width: 60px; height: 30px;
+            border-radius: 50% 40% 40% 50% / 50% 50% 50% 50%;
+        }
+        /* Eye */
+        .fish-body::before {
+            content: ''; position: absolute;
+            width: 8px; height: 8px; background: #fff; border-radius: 50%;
+            top: 7px; left: 42px; z-index: 2;
+            box-shadow: inset 2px 0 0 2px #111;
+        }
+        /* Mouth */
+        .fish-body::after {
+            content: ''; position: absolute;
+            width: 5px; height: 3px; background: rgba(0,0,0,0.3); border-radius: 0 50% 50% 0;
+            top: 15px; left: 55px;
+        }
+        /* Tail */
+        .fish-tail {
+            position: absolute; left: -14px; top: 3px;
+            width: 0; height: 0;
+            border-top: 12px solid transparent; border-bottom: 12px solid transparent;
+            border-left: 18px solid currentColor;
+            animation: tailWag 0.4s ease-in-out infinite alternate;
+        }
+        @keyframes tailWag {
+            0% { transform: rotate(-10deg); }
+            100% { transform: rotate(10deg); }
+        }
+        /* Dorsal fin */
+        .fish-fin-top {
+            position: absolute; top: -8px; left: 20px;
+            width: 0; height: 0;
+            border-left: 8px solid transparent; border-right: 8px solid transparent;
+            border-bottom: 12px solid currentColor; opacity: 0.8;
+        }
+        /* Pectoral fin */
+        .fish-fin-side {
+            position: absolute; bottom: -4px; left: 25px;
+            width: 0; height: 0;
+            border-left: 6px solid transparent; border-right: 6px solid transparent;
+            border-top: 8px solid currentColor; opacity: 0.7;
+        }
+
+        /* ===== FISH 1 - Orange/Gold Koi ===== */
+        #fish1 { animation: swim1 12s linear infinite; }
+        #fish1 .fish-body { background: linear-gradient(135deg, #ff8c00, #ffb347, #ff6b00); }
+        #fish1 .fish-tail { color: #ff8c00; }
+        #fish1 .fish-fin-top { color: #ff6b00; }
+        #fish1 .fish-fin-side { color: #ff6b00; }
+
+        @keyframes swim1 {
+            0%   { left: 20px;  top: 100px; transform: scaleX(1); }
+            49.9%{ left: 820px; top: 150px; transform: scaleX(1); }
+            50%  { left: 820px; top: 150px; transform: scaleX(-1); }
+            99.9%{ left: 20px;  top: 100px; transform: scaleX(-1); }
+            100% { left: 20px;  top: 100px; transform: scaleX(1); }
+        }
+
+        /* ===== FISH 2 - Blue tropical ===== */
+        #fish2 { animation: swim2 15s linear infinite; }
+        #fish2 .fish-body {
+            background: linear-gradient(135deg, #0077b6, #00b4d8, #0096c7);
+            width: 50px; height: 25px;
+        }
+        #fish2 .fish-body::before { top: 5px; left: 35px; width: 6px; height: 6px; }
+        #fish2 .fish-body::after { top: 12px; left: 46px; }
+        #fish2 .fish-tail { color: #0077b6; border-left-width: 15px; border-top-width: 10px; border-bottom-width: 10px; }
+        #fish2 .fish-fin-top { color: #0096c7; }
+        #fish2 .fish-fin-side { color: #0096c7; }
+
+        @keyframes swim2 {
+            0%   { left: 820px; top: 250px; transform: scaleX(-1); }
+            49.9%{ left: 20px;  top: 180px; transform: scaleX(-1); }
+            50%  { left: 20px;  top: 180px; transform: scaleX(1); }
+            99.9%{ left: 820px; top: 250px; transform: scaleX(1); }
+            100% { left: 820px; top: 250px; transform: scaleX(-1); }
+        }
+
+        /* ===== FISH 3 - Red ===== */
+        #fish3 { animation: swim3 10s linear infinite; }
+        #fish3 .fish-body {
+            background: linear-gradient(135deg, #dc2626, #f87171, #b91c1c);
+            width: 45px; height: 22px;
+        }
+        #fish3 .fish-body::before { top: 4px; left: 32px; width: 6px; height: 6px; }
+        #fish3 .fish-body::after { top: 10px; left: 41px; }
+        #fish3 .fish-tail { color: #dc2626; border-left-width: 13px; border-top-width: 9px; border-bottom-width: 9px; }
+        #fish3 .fish-fin-top { color: #b91c1c; }
+        #fish3 .fish-fin-side { color: #b91c1c; }
+
+        @keyframes swim3 {
+            0%   { left: 400px; top: 350px; transform: scaleX(1); }
+            25%  { left: 820px; top: 300px; transform: scaleX(1); }
+            25.1%{ left: 820px; top: 300px; transform: scaleX(-1); }
+            75%  { left: 20px; top: 370px; transform: scaleX(-1); }
+            75.1%{ left: 20px; top: 370px; transform: scaleX(1); }
+            99.9%{ left: 400px; top: 350px; transform: scaleX(1); }
+            100% { left: 400px; top: 350px; transform: scaleX(1); }
+        }
+
+        /* ===== FISH 4 - Purple/Pink ===== */
+        #fish4 { animation: swim4 18s linear infinite; }
+        #fish4 .fish-body {
+            background: linear-gradient(135deg, #9333ea, #c084fc, #7e22ce);
+            width: 55px; height: 28px;
+        }
+        #fish4 .fish-body::before { top: 6px; left: 40px; width: 7px; height: 7px; }
+        #fish4 .fish-body::after { top: 14px; left: 50px; }
+        #fish4 .fish-tail { color: #9333ea; }
+        #fish4 .fish-fin-top { color: #7e22ce; }
+        #fish4 .fish-fin-side { color: #7e22ce; }
+
+        @keyframes swim4 {
+            0%   { left: 150px; top: 200px; transform: scaleX(1); }
+            30%  { left: 820px; top: 120px; transform: scaleX(1); }
+            30.1%{ left: 820px; top: 120px; transform: scaleX(-1); }
+            80%  { left: 20px;  top: 300px; transform: scaleX(-1); }
+            80.1%{ left: 20px;  top: 300px; transform: scaleX(1); }
+            99.9%{ left: 150px; top: 200px; transform: scaleX(1); }
+            100% { left: 150px; top: 200px; transform: scaleX(1); }
+        }
+
+        /* ===== FISH 5 - Green small ===== */
+        #fish5 { animation: swim5 9s linear infinite; }
+        #fish5 .fish-body {
+            background: linear-gradient(135deg, #16a34a, #4ade80, #15803d);
+            width: 38px; height: 18px;
+        }
+        #fish5 .fish-body::before { top: 3px; left: 26px; width: 5px; height: 5px; }
+        #fish5 .fish-body::after { top: 8px; left: 34px; width: 3px; height: 2px; }
+        #fish5 .fish-tail { color: #16a34a; border-left-width: 11px; border-top-width: 7px; border-bottom-width: 7px; left: -10px; top: 2px; }
+        #fish5 .fish-fin-top { color: #15803d; top: -5px; left: 14px; border-bottom-width: 8px; }
+        #fish5 .fish-fin-side { color: #15803d; left: 16px; border-top-width: 6px; }
+
+        @keyframes swim5 {
+            0%   { left: 600px; top: 160px; transform: scaleX(-1); }
+            30%  { left: 20px; top: 100px; transform: scaleX(-1); }
+            30.1%{ left: 20px; top: 100px; transform: scaleX(1); }
+            80%  { left: 820px; top: 250px; transform: scaleX(1); }
+            80.1%{ left: 820px; top: 250px; transform: scaleX(-1); }
+            99.9%{ left: 600px; top: 160px; transform: scaleX(-1); }
+            100% { left: 600px; top: 160px; transform: scaleX(-1); }
+        }
+
+        /* ===== FLOAT ANIMATION for fish ===== */
+        .fish { animation-timing-function: linear; }
+        .fish-body { animation: bodyWobble 2s ease-in-out infinite; }
+        @keyframes bodyWobble {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            color: rgba(255,255,255,0.4); margin-top: 20px; font-size: 0.85em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🐟 HỒ CÁ CSS3 🐟</h1>
+
+    <div id="pond">
+        <!-- Light rays -->
+        <div class="light-ray"></div>
+        <div class="light-ray"></div>
+        <div class="light-ray"></div>
+
+        <!-- Fish 1 - Orange Koi -->
+        <div class="fish" id="fish1">
+            <div class="fish-body">
+                <div class="fish-tail"></div>
+                <div class="fish-fin-top"></div>
+                <div class="fish-fin-side"></div>
+            </div>
+        </div>
+
+        <!-- Fish 2 - Blue -->
+        <div class="fish" id="fish2">
+            <div class="fish-body">
+                <div class="fish-tail"></div>
+                <div class="fish-fin-top"></div>
+                <div class="fish-fin-side"></div>
+            </div>
+        </div>
+
+        <!-- Fish 3 - Red -->
+        <div class="fish" id="fish3">
+            <div class="fish-body">
+                <div class="fish-tail"></div>
+                <div class="fish-fin-top"></div>
+                <div class="fish-fin-side"></div>
+            </div>
+        </div>
+
+        <!-- Fish 4 - Purple -->
+        <div class="fish" id="fish4">
+            <div class="fish-body">
+                <div class="fish-tail"></div>
+                <div class="fish-fin-top"></div>
+                <div class="fish-fin-side"></div>
+            </div>
+        </div>
+
+        <!-- Fish 5 - Green -->
+        <div class="fish" id="fish5">
+            <div class="fish-body">
+                <div class="fish-tail"></div>
+                <div class="fish-fin-top"></div>
+                <div class="fish-fin-side"></div>
+            </div>
+        </div>
+
+        <!-- Bubbles -->
+        <div class="bubble b1"></div>
+        <div class="bubble b2"></div>
+        <div class="bubble b3"></div>
+        <div class="bubble b4"></div>
+        <div class="bubble b5"></div>
+        <div class="bubble b6"></div>
+
+        <!-- Plants -->
+        <div class="plant p1"><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div></div>
+        <div class="plant p2"><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div></div>
+        <div class="plant p3"><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div></div>
+        <div class="plant p4"><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div></div>
+
+        <!-- Rocks -->
+        <div class="rock r1"></div>
+        <div class="rock r2"></div>
+        <div class="rock r3"></div>
+
+        <!-- Sand -->
+        <div class="sand"></div>
+    </div>
+
+
+</body>
+</html>
