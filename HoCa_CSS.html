@@ -4,21 +4,23 @@
     <title>HỒ CÁ CSS3</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Hồ cá - Bài tập môn Web">
+    <meta name="description" content="Hồ cá CSS3 - Bài thi giữa kỳ môn Web">
     <style>
         /* ===== RESET & BODY ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #0a0a2e 0%, #1a1a4e 40%, #0d2137 100%);
+            background: linear-gradient(135deg, #090a16 0%, #12142e 50%, #08101d 100%);
             font-family: 'Segoe UI', Arial, sans-serif;
             overflow: hidden;
+            color: #fff;
+            padding: 20px 0;
         }
 
         /* ===== TITLE ===== */
         h1 {
-            color: #fff; font-size: 2.2em; margin-bottom: 25px; text-align: center;
+            color: #fff; font-size: 2em; margin-bottom: 15px; text-align: center;
             text-shadow: 0 0 20px rgba(0,200,255,0.6), 0 0 40px rgba(0,200,255,0.3);
             animation: titleGlow 3s ease-in-out infinite alternate;
         }
@@ -27,13 +29,91 @@
             100% { text-shadow: 0 0 30px rgba(0,255,200,0.8), 0 0 60px rgba(0,255,200,0.4); }
         }
 
+        /* ===== CONTROL PANEL ===== */
+        .controls-wrapper {
+            display: flex; flex-direction: column; gap: 10px;
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            padding: 12px 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            max-width: 900px; width: 95%;
+        }
+
+        .control-row {
+            display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;
+        }
+
+        .control-label {
+            font-weight: 600; font-size: 0.9em; color: #a5f3fc;
+            min-width: 120px; text-align: right; margin-right: 5px;
+        }
+
+        .btn-group {
+            display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #e0f2fe; padding: 6px 14px; border-radius: 20px;
+            font-size: 0.85em; font-weight: 500; cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex; align-items: center; gap: 5px;
+            user-select: none;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 200, 255, 0.2);
+        }
+
+        .btn.active {
+            background: linear-gradient(135deg, #0284c7, #06b6d4);
+            border-color: #38bdf8; color: #fff;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+            font-weight: 600;
+        }
+
+        .btn-action {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: rgba(52, 211, 153, 0.4);
+            color: #a7f3d0;
+        }
+        .btn-action:hover {
+            background: rgba(16, 185, 129, 0.4);
+        }
+
         /* ===== POND CONTAINER ===== */
         #pond {
             position: relative; width: 900px; height: 500px;
-            background: linear-gradient(180deg, #064273 0%, #0a2e5c 30%, #061a33 70%, #0a1628 100%);
             border-radius: 20px; overflow: hidden;
             border: 5px solid #2a6090;
-            box-shadow: 0 0 30px rgba(0,150,255,0.3), inset 0 0 60px rgba(0,50,100,0.5);
+            box-shadow: 0 0 35px rgba(0,150,255,0.4), inset 0 0 60px rgba(0,50,100,0.6);
+            transition: background 1s ease, border-color 1s ease;
+            cursor: pointer;
+        }
+
+        /* BACKGROUND THEMES */
+        #pond.bg-deep-ocean {
+            background: linear-gradient(180deg, #064273 0%, #0a2e5c 30%, #061a33 70%, #0a1628 100%);
+            border-color: #2a6090;
+        }
+        #pond.bg-coral-reef {
+            background: linear-gradient(180deg, #005f73 0%, #0a9396 35%, #001219 85%, #000508 100%);
+            border-color: #94d2bd;
+        }
+        #pond.bg-sunset-pond {
+            background: linear-gradient(180deg, #800e13 0%, #ad2831 30%, #38040e 70%, #250209 100%);
+            border-color: #ffb703;
+        }
+        #pond.bg-moss-aquarium {
+            background: linear-gradient(180deg, #064e3b 0%, #047857 35%, #022c22 75%, #011913 100%);
+            border-color: #34d399;
         }
 
         /* ===== WATER SHIMMER ===== */
@@ -49,17 +129,60 @@
         }
         @keyframes shimmer { 0% { transform: translateX(0); } 100% { transform: translateX(25%); } }
 
-        /* Light rays */
-        .light-ray {
-            position: absolute; top: -20px; width: 80px; height: 120%;
-            background: linear-gradient(180deg, rgba(255,255,255,0.08), transparent 70%);
-            transform: skewX(-15deg); z-index: 9; pointer-events: none;
-            animation: rayPulse 4s ease-in-out infinite alternate;
+        /* ===== AQUARIUM LIGHTING ===== */
+        #pond {
+            transition: background 1s ease, border-color 1s ease, filter 0.6s ease, box-shadow 0.6s ease;
         }
-        .light-ray:nth-child(1) { left: 100px; animation-delay: 0s; }
-        .light-ray:nth-child(2) { left: 350px; width: 60px; animation-delay: 1.5s; }
-        .light-ray:nth-child(3) { left: 600px; width: 90px; animation-delay: 0.8s; }
-        @keyframes rayPulse { 0% { opacity: 0.5; } 100% { opacity: 1; } }
+        #pond.dark-mode {
+            filter: brightness(0.4) contrast(1.2);
+            box-shadow: 0 0 15px rgba(0,0,0,0.8), inset 0 0 80px rgba(0,0,0,0.9);
+        }
+
+        .light-rays-container {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 9;
+            transition: opacity 0.5s ease;
+        }
+        .light-rays-container.hidden {
+            opacity: 0;
+        }
+
+        /* Top LED Lamp Glow */
+        .top-lamp-glow {
+            position: absolute; top: 0; left: 0; width: 100%; height: 70px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.45) 0%, rgba(56,189,248,0.2) 50%, transparent 100%);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+        }
+
+        .light-ray {
+            position: absolute; top: -10px; height: 120%;
+            clip-path: polygon(25% 0%, 75% 0%, 100% 100%, 0% 100%);
+            animation: rayPulse 3.5s ease-in-out infinite alternate;
+        }
+        .light-ray:nth-child(2) {
+            left: 40px; width: 140px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.12) 65%, transparent 100%);
+            transform: skewX(-28deg); animation-delay: 0s;
+        }
+        .light-ray:nth-child(3) {
+            left: 240px; width: 170px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.15) 70%, transparent 100%);
+            transform: skewX(-15deg); animation-delay: 1.2s;
+        }
+        .light-ray:nth-child(4) {
+            left: 480px; width: 160px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.12) 65%, transparent 100%);
+            transform: skewX(16deg); animation-delay: 0.7s;
+        }
+        .light-ray:nth-child(5) {
+            left: 680px; width: 140px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.08) 60%, transparent 100%);
+            transform: skewX(28deg); animation-delay: 2s;
+        }
+        @keyframes rayPulse {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
 
         /* ===== SAND FLOOR ===== */
         .sand {
@@ -108,8 +231,8 @@
         /* ===== BUBBLES ===== */
         .bubble {
             position: absolute; border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4), rgba(255,255,255,0.1));
-            border: 1px solid rgba(255,255,255,0.2);
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), rgba(255,255,255,0.1));
+            border: 1px solid rgba(255,255,255,0.3);
             z-index: 8; animation: rise linear infinite;
         }
         .bubble.b1 { width: 8px; height: 8px; left: 120px; bottom: 60px; animation-duration: 6s; }
@@ -123,6 +246,19 @@
             10% { opacity: 0.8; }
             90% { opacity: 0.6; }
             100% { transform: translateY(-420px) translateX(20px); opacity: 0; }
+        }
+
+        /* ===== FISH FOOD ===== */
+        .food-pellet {
+            position: absolute; width: 6px; height: 6px; background: #fbbf24;
+            border-radius: 50%; z-index: 7;
+            box-shadow: 0 0 6px #f59e0b;
+            animation: sinkFood 3s linear forwards;
+        }
+        @keyframes sinkFood {
+            0% { opacity: 1; transform: translateY(0); }
+            90% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(350px); }
         }
 
         /* ===== FISH (pure CSS) ===== */
@@ -282,9 +418,8 @@
             50% { transform: translateY(-3px); }
         }
 
-        /* ===== FOOTER ===== */
-        .footer {
-            color: rgba(255,255,255,0.4); margin-top: 20px; font-size: 0.85em;
+        .hint-text {
+            margin-top: 8px; font-size: 0.8em; color: rgba(255,255,255,0.4); text-align: center;
         }
     </style>
 </head>
@@ -292,11 +427,47 @@
 
     <h1>🐟 HỒ CÁ CSS3 🐟</h1>
 
-    <div id="pond">
+    <!-- CONTROLS PANEL -->
+    <div class="controls-wrapper">
+        <div class="control-row">
+            <span class="control-label">🎨 Background:</span>
+            <div class="btn-group">
+                <button class="btn btn-bg active" onclick="setBg('bg-deep-ocean', this)">🌊 Biển Đêm</button>
+                <button class="btn btn-bg" onclick="setBg('bg-coral-reef', this)">🪸 San Hô</button>
+                <button class="btn btn-bg" onclick="setBg('bg-sunset-pond', this)">🌅 Hoàng Hôn</button>
+                <button class="btn btn-bg" onclick="setBg('bg-moss-aquarium', this)">🌿 Thủy Sinh</button>
+            </div>
+        </div>
+
+        <div class="control-row">
+            <span class="control-label">🎵 Âm Thanh:</span>
+            <div class="btn-group">
+                <button class="btn btn-audio active" onclick="setAudio(0, this)">🔇 Tắt</button>
+                <button class="btn btn-audio" onclick="setAudio(1, this)">🫧 Sóng & Bọt Nước</button>
+                <button class="btn btn-audio" onclick="setAudio(2, this)">🎶 Nhạc Thư Giãn</button>
+                <button class="btn btn-audio" onclick="setAudio(3, this)">🌧️ Tiếng Nước Chảy</button>
+            </div>
+        </div>
+
+        <div class="control-row">
+            <span class="control-label">✨ Hiệu Ứng:</span>
+            <div class="btn-group">
+                <button class="btn btn-action" onclick="feedFishCenter()">🍞 Thả Thức Ăn</button>
+                <button class="btn btn-action active" id="btnLight" onclick="toggleLight(this)">💡 Bật/Tắt Đèn</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- POND CONTAINER -->
+    <div id="pond" class="bg-deep-ocean" onclick="dropFoodEvent(event)">
         <!-- Light rays -->
-        <div class="light-ray"></div>
-        <div class="light-ray"></div>
-        <div class="light-ray"></div>
+        <div class="light-rays-container" id="lightRays">
+            <div class="top-lamp-glow"></div>
+            <div class="light-ray"></div>
+            <div class="light-ray"></div>
+            <div class="light-ray"></div>
+            <div class="light-ray"></div>
+        </div>
 
         <!-- Fish 1 - Orange Koi -->
         <div class="fish" id="fish1">
@@ -366,6 +537,201 @@
         <div class="sand"></div>
     </div>
 
+    <p class="hint-text">💡 Mẹo: Nhấp trực tiếp vào hồ cá để thả hạt thức ăn cho cá!</p>
 
+    <!-- JAVASCRIPT FOR AUDIO, BACKGROUND & EFFECTS -->
+    <script>
+        // Change Background
+        function setBg(themeClass, element) {
+            const pond = document.getElementById('pond');
+            pond.className = themeClass;
+            document.querySelectorAll('.btn-bg').forEach(b => b.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        // Toggle Light Rays & Night Mode
+        function toggleLight(btn) {
+            const pond = document.getElementById('pond');
+            const lightContainer = document.getElementById('lightRays');
+            const isHidden = lightContainer.classList.toggle('hidden');
+            pond.classList.toggle('dark-mode', isHidden);
+            btn.classList.toggle('active', !isHidden);
+        }
+
+        // Drop Food on Click
+        function dropFoodEvent(e) {
+            const pond = document.getElementById('pond');
+            const rect = pond.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            createFoodPellet(x, y);
+        }
+
+        function feedFishCenter() {
+            createFoodPellet(450, 40);
+        }
+
+        function createFoodPellet(x, y) {
+            const pond = document.getElementById('pond');
+            const pellet = document.createElement('div');
+            pellet.className = 'food-pellet';
+            pellet.style.left = x + 'px';
+            pellet.style.top = y + 'px';
+            pond.appendChild(pellet);
+
+            setTimeout(() => {
+                pellet.remove();
+            }, 3000);
+        }
+
+        // WEB AUDIO API SYNTHESIZER (Pure JS, no external files needed)
+        let audioCtx = null;
+        let currentMode = 0;
+        let activeNodes = [];
+        let timerId = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function stopAudio() {
+            activeNodes.forEach(node => {
+                try { node.stop ? node.stop() : node.disconnect(); } catch(e) {}
+            });
+            activeNodes = [];
+            if (timerId) { clearInterval(timerId); timerId = null; }
+        }
+
+        function setAudio(mode, element) {
+            initAudio();
+            stopAudio();
+            currentMode = mode;
+
+            document.querySelectorAll('.btn-audio').forEach(b => b.classList.remove('active'));
+            element.classList.add('active');
+
+            if (mode === 1) playOceanAndBubbles();
+            else if (mode === 2) playRelaxingChimes();
+            else if (mode === 3) playWaterStream();
+        }
+
+        // Mode 1: Ocean & Bubbles
+        function playOceanAndBubbles() {
+            // White Noise Generator for Waves
+            const bufferSize = audioCtx.sampleRate * 2;
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                data[i] = Math.random() * 2 - 1;
+            }
+
+            const noise = audioCtx.createBufferSource();
+            noise.buffer = buffer;
+            noise.loop = true;
+
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(300, audioCtx.currentTime);
+
+            const gain = audioCtx.createGain();
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+
+            // LFO for wave modulation
+            const lfo = audioCtx.createOscillator();
+            lfo.frequency.value = 0.2; // 0.2 Hz waves
+            const lfoGain = audioCtx.createGain();
+            lfoGain.gain.value = 200;
+
+            lfo.connect(filter.frequency);
+            noise.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            noise.start();
+            lfo.start();
+            activeNodes.push(noise, lfo, gain);
+
+            // Bubble pops
+            timerId = setInterval(() => {
+                if (currentMode !== 1) return;
+                playBubblePop();
+            }, 800);
+        }
+
+        function playBubblePop() {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            const freq = 400 + Math.random() * 600;
+            
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(freq + 400, audioCtx.currentTime + 0.08);
+
+            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.09);
+        }
+
+        // Mode 2: Relaxing Lofi Chimes
+        function playRelaxingChimes() {
+            const notes = [261.63, 329.63, 392.00, 440.00, 523.25, 659.25]; // C E G A C E
+            timerId = setInterval(() => {
+                if (currentMode !== 2) return;
+                const note = notes[Math.floor(Math.random() * notes.length)];
+                
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(note, audioCtx.currentTime);
+
+                gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime + 0.1);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 2.5);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 2.6);
+            }, 1200);
+        }
+
+        // Mode 3: Water Stream
+        function playWaterStream() {
+            const bufferSize = audioCtx.sampleRate * 2;
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                data[i] = Math.random() * 2 - 1;
+            }
+
+            const noise = audioCtx.createBufferSource();
+            noise.buffer = buffer;
+            noise.loop = true;
+
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'bandpass';
+            filter.frequency.setValueAtTime(800, audioCtx.currentTime);
+            filter.Q.setValueAtTime(3.0, audioCtx.currentTime);
+
+            const gain = audioCtx.createGain();
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+
+            noise.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            noise.start();
+            activeNodes.push(noise, gain);
+        }
+    </script>
 </body>
 </html>
