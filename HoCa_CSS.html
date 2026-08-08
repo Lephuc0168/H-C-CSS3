@@ -18,9 +18,18 @@
             padding: 20px 0;
         }
 
+        /* ===== APP WRAPPER FOR AUTO ZOOM FIT ===== */
+        .app-wrapper {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transform: scale(0.84);
+            transform-origin: center top;
+            width: 100%; max-width: 1100px;
+            margin: -20px 0;
+        }
+
         /* ===== TITLE ===== */
         h1 {
-            color: #fff; font-size: 2em; margin-bottom: 15px; text-align: center;
+            color: #fff; font-size: 1.9em; margin-bottom: 12px; text-align: center;
             text-shadow: 0 0 20px rgba(0,200,255,0.6), 0 0 40px rgba(0,200,255,0.3);
             animation: titleGlow 3s ease-in-out infinite alternate;
         }
@@ -31,14 +40,14 @@
 
         /* ===== CONTROL PANEL ===== */
         .controls-wrapper {
-            display: flex; flex-direction: column; gap: 10px;
+            display: flex; flex-direction: column; gap: 8px;
             background: rgba(255, 255, 255, 0.07);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 16px;
-            padding: 12px 20px;
-            margin-bottom: 15px;
+            padding: 10px 18px;
+            margin-bottom: 12px;
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
             max-width: 900px; width: 95%;
         }
@@ -526,119 +535,121 @@
 </head>
 <body>
 
-    <h1>🐟 HỒ CÁ CSS3 🐟</h1>
+    <div class="app-wrapper">
+        <h1>🐟 HỒ CÁ CSS3 🐟</h1>
 
-    <!-- CONTROLS PANEL -->
-    <div class="controls-wrapper">
-        <div class="control-row">
-            <span class="control-label">🎨 Background:</span>
-            <div class="btn-group">
-                <button class="btn btn-bg active" onclick="setBg('bg-deep-ocean', this)">🌊 Biển Đêm</button>
-                <button class="btn btn-bg" onclick="setBg('bg-coral-reef', this)">🪸 San Hô</button>
-                <button class="btn btn-bg" onclick="setBg('bg-sunset-pond', this)">🌅 Hoàng Hôn</button>
-                <button class="btn btn-bg" onclick="setBg('bg-moss-aquarium', this)">🌿 Thủy Sinh</button>
+        <!-- CONTROLS PANEL -->
+        <div class="controls-wrapper">
+            <div class="control-row">
+                <span class="control-label">🎨 Background:</span>
+                <div class="btn-group">
+                    <button class="btn btn-bg active" onclick="setBg('bg-deep-ocean', this)">🌊 Biển Đêm</button>
+                    <button class="btn btn-bg" onclick="setBg('bg-coral-reef', this)">🪸 San Hô</button>
+                    <button class="btn btn-bg" onclick="setBg('bg-sunset-pond', this)">🌅 Hoàng Hôn</button>
+                    <button class="btn btn-bg" onclick="setBg('bg-moss-aquarium', this)">🌿 Thủy Sinh</button>
+                </div>
+            </div>
+
+            <div class="control-row">
+                <span class="control-label">🎵 Âm Thanh:</span>
+                <div class="btn-group">
+                    <button class="btn btn-audio active" onclick="setAudio(0, this)">🔇 Tắt</button>
+                    <button class="btn btn-audio" onclick="setAudio(1, this)">🫧 Sóng & Bọt Nước</button>
+                    <button class="btn btn-audio" onclick="setAudio(2, this)">🎶 Nhạc Thư Giãn</button>
+                    <button class="btn btn-audio" onclick="setAudio(3, this)">🌧️ Tiếng Nước Chảy</button>
+                </div>
+            </div>
+
+            <div class="control-row">
+                <span class="control-label">✨ Hiệu Ứng:</span>
+                <div class="btn-group">
+                    <button class="btn btn-action" onclick="feedFishCenter()">🍞 Thả Thức Ăn</button>
+                    <button class="btn btn-action active" id="btnLight" onclick="toggleLight(this)">💡 Bật/Tắt Đèn</button>
+                </div>
             </div>
         </div>
 
-        <div class="control-row">
-            <span class="control-label">🎵 Âm Thanh:</span>
-            <div class="btn-group">
-                <button class="btn btn-audio active" onclick="setAudio(0, this)">🔇 Tắt</button>
-                <button class="btn btn-audio" onclick="setAudio(1, this)">🫧 Sóng & Bọt Nước</button>
-                <button class="btn btn-audio" onclick="setAudio(2, this)">🎶 Nhạc Thư Giãn</button>
-                <button class="btn btn-audio" onclick="setAudio(3, this)">🌧️ Tiếng Nước Chảy</button>
+        <!-- POND CONTAINER -->
+        <div id="pond" class="bg-deep-ocean" onclick="dropFoodEvent(event)">
+            <!-- Light rays -->
+            <div class="light-rays-container" id="lightRays">
+                <div class="top-lamp-glow"></div>
+                <div class="light-ray"></div>
+                <div class="light-ray"></div>
+                <div class="light-ray"></div>
+                <div class="light-ray"></div>
             </div>
+
+            <!-- Fish 1 - Orange Koi -->
+            <div class="fish" id="fish1">
+                <div class="fish-body">
+                    <div class="fish-tail"></div>
+                    <div class="fish-fin-top"></div>
+                    <div class="fish-fin-side"></div>
+                </div>
+            </div>
+
+            <!-- Fish 2 - Blue Angelfish -->
+            <div class="fish" id="fish2">
+                <div class="fish-body">
+                    <div class="fish-tail"></div>
+                    <div class="fish-fin-top"></div>
+                    <div class="fish-fin-side"></div>
+                </div>
+            </div>
+
+            <!-- Fish 3 - Shark -->
+            <div class="fish" id="fish3">
+                <div class="fish-body">
+                    <div class="fish-tail"></div>
+                    <div class="fish-fin-top"></div>
+                    <div class="fish-fin-side"></div>
+                </div>
+            </div>
+
+            <!-- Fish 4 - Pufferfish -->
+            <div class="fish" id="fish4">
+                <div class="fish-body">
+                    <div class="fish-tail"></div>
+                    <div class="fish-fin-top"></div>
+                    <div class="fish-fin-side"></div>
+                </div>
+            </div>
+
+            <!-- Fish 5 - Fancy Betta -->
+            <div class="fish" id="fish5">
+                <div class="fish-body">
+                    <div class="fish-tail"></div>
+                    <div class="fish-fin-top"></div>
+                    <div class="fish-fin-side"></div>
+                </div>
+            </div>
+
+            <!-- Bubbles -->
+            <div class="bubble b1"></div>
+            <div class="bubble b2"></div>
+            <div class="bubble b3"></div>
+            <div class="bubble b4"></div>
+            <div class="bubble b5"></div>
+            <div class="bubble b6"></div>
+
+            <!-- Plants -->
+            <div class="plant p1"><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div></div>
+            <div class="plant p2"><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div></div>
+            <div class="plant p3"><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div></div>
+            <div class="plant p4"><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div></div>
+
+            <!-- Rocks -->
+            <div class="rock r1"></div>
+            <div class="rock r2"></div>
+            <div class="rock r3"></div>
+
+            <!-- Sand -->
+            <div class="sand"></div>
         </div>
 
-        <div class="control-row">
-            <span class="control-label">✨ Hiệu Ứng:</span>
-            <div class="btn-group">
-                <button class="btn btn-action" onclick="feedFishCenter()">🍞 Thả Thức Ăn</button>
-                <button class="btn btn-action active" id="btnLight" onclick="toggleLight(this)">💡 Bật/Tắt Đèn</button>
-            </div>
-        </div>
+        <p class="hint-text">💡 Mẹo: Nhấp trực tiếp vào hồ cá để thả hạt thức ăn cho cá!</p>
     </div>
-
-    <!-- POND CONTAINER -->
-    <div id="pond" class="bg-deep-ocean" onclick="dropFoodEvent(event)">
-        <!-- Light rays -->
-        <div class="light-rays-container" id="lightRays">
-            <div class="top-lamp-glow"></div>
-            <div class="light-ray"></div>
-            <div class="light-ray"></div>
-            <div class="light-ray"></div>
-            <div class="light-ray"></div>
-        </div>
-
-        <!-- Fish 1 - Orange Koi -->
-        <div class="fish" id="fish1">
-            <div class="fish-body">
-                <div class="fish-tail"></div>
-                <div class="fish-fin-top"></div>
-                <div class="fish-fin-side"></div>
-            </div>
-        </div>
-
-        <!-- Fish 2 - Blue -->
-        <div class="fish" id="fish2">
-            <div class="fish-body">
-                <div class="fish-tail"></div>
-                <div class="fish-fin-top"></div>
-                <div class="fish-fin-side"></div>
-            </div>
-        </div>
-
-        <!-- Fish 3 - Red -->
-        <div class="fish" id="fish3">
-            <div class="fish-body">
-                <div class="fish-tail"></div>
-                <div class="fish-fin-top"></div>
-                <div class="fish-fin-side"></div>
-            </div>
-        </div>
-
-        <!-- Fish 4 - Purple -->
-        <div class="fish" id="fish4">
-            <div class="fish-body">
-                <div class="fish-tail"></div>
-                <div class="fish-fin-top"></div>
-                <div class="fish-fin-side"></div>
-            </div>
-        </div>
-
-        <!-- Fish 5 - Green -->
-        <div class="fish" id="fish5">
-            <div class="fish-body">
-                <div class="fish-tail"></div>
-                <div class="fish-fin-top"></div>
-                <div class="fish-fin-side"></div>
-            </div>
-        </div>
-
-        <!-- Bubbles -->
-        <div class="bubble b1"></div>
-        <div class="bubble b2"></div>
-        <div class="bubble b3"></div>
-        <div class="bubble b4"></div>
-        <div class="bubble b5"></div>
-        <div class="bubble b6"></div>
-
-        <!-- Plants -->
-        <div class="plant p1"><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div></div>
-        <div class="plant p2"><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div></div>
-        <div class="plant p3"><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div></div>
-        <div class="plant p4"><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div></div>
-
-        <!-- Rocks -->
-        <div class="rock r1"></div>
-        <div class="rock r2"></div>
-        <div class="rock r3"></div>
-
-        <!-- Sand -->
-        <div class="sand"></div>
-    </div>
-
-    <p class="hint-text">💡 Mẹo: Nhấp trực tiếp vào hồ cá để thả hạt thức ăn cho cá!</p>
 
     <!-- JAVASCRIPT FOR AUDIO, BACKGROUND & EFFECTS -->
     <script>
@@ -663,8 +674,9 @@
         function dropFoodEvent(e) {
             const pond = document.getElementById('pond');
             const rect = pond.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+            const scale = rect.width / 900;
+            const x = (e.clientX - rect.left) / scale;
+            const y = (e.clientY - rect.top) / scale;
             createFoodPellet(x, y);
         }
 
