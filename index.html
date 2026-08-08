@@ -261,153 +261,254 @@
             100% { opacity: 0; transform: translateY(350px); }
         }
 
-        /* ===== FISH (pure CSS) ===== */
+        /* =================================================== */
+        /* ===== 5 SPECIES OF DISTINCT FISH MODELS (CSS) ===== */
+        /* =================================================== */
+
         .fish {
             position: absolute; z-index: 5;
-        }
-        .fish-body {
-            position: relative; width: 60px; height: 30px;
-            border-radius: 50% 40% 40% 50% / 50% 50% 50% 50%;
-        }
-        /* Eye */
-        .fish-body::before {
-            content: ''; position: absolute;
-            width: 8px; height: 8px; background: #fff; border-radius: 50%;
-            top: 7px; left: 42px; z-index: 2;
-            box-shadow: inset 2px 0 0 2px #111;
-        }
-        /* Mouth */
-        .fish-body::after {
-            content: ''; position: absolute;
-            width: 5px; height: 3px; background: rgba(0,0,0,0.3); border-radius: 0 50% 50% 0;
-            top: 15px; left: 55px;
-        }
-        /* Tail */
-        .fish-tail {
-            position: absolute; left: -14px; top: 3px;
-            width: 0; height: 0;
-            border-top: 12px solid transparent; border-bottom: 12px solid transparent;
-            border-left: 18px solid currentColor;
-            animation: tailWag 0.4s ease-in-out infinite alternate;
-        }
-        @keyframes tailWag {
-            0% { transform: rotate(-10deg); }
-            100% { transform: rotate(10deg); }
-        }
-        /* Dorsal fin */
-        .fish-fin-top {
-            position: absolute; top: -8px; left: 20px;
-            width: 0; height: 0;
-            border-left: 8px solid transparent; border-right: 8px solid transparent;
-            border-bottom: 12px solid currentColor; opacity: 0.8;
-        }
-        /* Pectoral fin */
-        .fish-fin-side {
-            position: absolute; bottom: -4px; left: 25px;
-            width: 0; height: 0;
-            border-left: 6px solid transparent; border-right: 6px solid transparent;
-            border-top: 8px solid currentColor; opacity: 0.7;
+            animation-timing-function: linear;
         }
 
-        /* ===== FISH 1 - Orange/Gold Koi ===== */
-        #fish1 { animation: swim1 12s linear infinite; }
-        #fish1 .fish-body { background: linear-gradient(135deg, #ff8c00, #ffb347, #ff6b00); }
-        #fish1 .fish-tail { color: #ff8c00; }
-        #fish1 .fish-fin-top { color: #ff6b00; }
-        #fish1 .fish-fin-side { color: #ff6b00; }
+        /* ===== SPECIES 1: CÁ CHÉP KOI (ORANGE KOI) ===== */
+        #fish1 { animation: swim1 13s linear infinite; }
+        #fish1 .fish-body {
+            position: relative; width: 68px; height: 30px;
+            background: radial-gradient(circle at 70% 30%, #fff 15%, transparent 16%),
+                        radial-gradient(circle at 40% 60%, #ea580c 25%, transparent 26%),
+                        linear-gradient(135deg, #ff7800, #ffb347, #e11d48);
+            border-radius: 50% 40% 40% 50% / 50% 50% 50% 50%;
+            animation: bodyWobble 2s ease-in-out infinite;
+        }
+        /* Eye */
+        #fish1 .fish-body::before {
+            content: ''; position: absolute; width: 8px; height: 8px;
+            background: #fff; border-radius: 50%; top: 7px; left: 50px; z-index: 2;
+            box-shadow: inset 2px 0 0 2px #111;
+        }
+        /* Whiskers (Barbels) */
+        #fish1 .fish-body::after {
+            content: ''; position: absolute; width: 8px; height: 4px;
+            border-top: 2px solid #ea580c; border-radius: 50% 50% 0 0;
+            top: 18px; left: 63px; transform: rotate(15deg);
+        }
+        #fish1 .fish-tail {
+            position: absolute; left: -16px; top: 2px;
+            width: 0; height: 0;
+            border-top: 13px solid transparent; border-bottom: 13px solid transparent;
+            border-left: 20px solid #ff7800;
+            animation: tailWag 0.35s ease-in-out infinite alternate;
+        }
+        #fish1 .fish-fin-top {
+            position: absolute; top: -10px; left: 22px; width: 0; height: 0;
+            border-left: 10px solid transparent; border-right: 10px solid transparent;
+            border-bottom: 14px solid #ea580c; opacity: 0.9;
+        }
+        #fish1 .fish-fin-side {
+            position: absolute; bottom: -5px; left: 28px; width: 0; height: 0;
+            border-left: 7px solid transparent; border-right: 7px solid transparent;
+            border-top: 10px solid #ea580c; opacity: 0.8;
+        }
 
         @keyframes swim1 {
             0%   { left: 20px;  top: 100px; transform: scaleX(1); }
-            49.9%{ left: 820px; top: 150px; transform: scaleX(1); }
-            50%  { left: 820px; top: 150px; transform: scaleX(-1); }
+            49.9%{ left: 810px; top: 140px; transform: scaleX(1); }
+            50%  { left: 810px; top: 140px; transform: scaleX(-1); }
             99.9%{ left: 20px;  top: 100px; transform: scaleX(-1); }
             100% { left: 20px;  top: 100px; transform: scaleX(1); }
         }
 
-        /* ===== FISH 2 - Blue tropical ===== */
-        #fish2 { animation: swim2 15s linear infinite; }
+        /* ===== SPECIES 2: CÁ ĐĨA / CÁ TIÊN (BLUE ANGELFISH) ===== */
+        #fish2 { animation: swim2 16s linear infinite; }
         #fish2 .fish-body {
-            background: linear-gradient(135deg, #0077b6, #00b4d8, #0096c7);
-            width: 50px; height: 25px;
+            position: relative; width: 44px; height: 55px;
+            background: repeating-linear-gradient(
+                90deg,
+                #0284c7, #0284c7 8px,
+                #38bdf8 8px, #38bdf8 16px,
+                #0f172a 16px, #0f172a 20px
+            );
+            border-radius: 50% 50% 50% 50% / 35% 35% 65% 65%;
+            animation: bodyWobble 2.4s ease-in-out infinite;
         }
-        #fish2 .fish-body::before { top: 5px; left: 35px; width: 6px; height: 6px; }
-        #fish2 .fish-body::after { top: 12px; left: 46px; }
-        #fish2 .fish-tail { color: #0077b6; border-left-width: 15px; border-top-width: 10px; border-bottom-width: 10px; }
-        #fish2 .fish-fin-top { color: #0096c7; }
-        #fish2 .fish-fin-side { color: #0096c7; }
+        #fish2 .fish-body::before {
+            content: ''; position: absolute; width: 7px; height: 7px;
+            background: #facc15; border-radius: 50%; top: 14px; left: 28px; z-index: 2;
+            box-shadow: inset 2px 0 0 2px #000;
+        }
+        #fish2 .fish-body::after {
+            content: ''; position: absolute; width: 4px; height: 4px;
+            background: #0284c7; border-radius: 50%; top: 26px; left: 38px;
+        }
+        /* Long trailing vertical fins */
+        #fish2 .fish-fin-top {
+            position: absolute; top: -32px; left: 12px; width: 0; height: 0;
+            border-left: 8px solid transparent; border-right: 4px solid transparent;
+            border-bottom: 36px solid #0284c7;
+        }
+        #fish2 .fish-fin-side {
+            position: absolute; bottom: -32px; left: 12px; width: 0; height: 0;
+            border-left: 8px solid transparent; border-right: 4px solid transparent;
+            border-top: 36px solid #0284c7;
+        }
+        #fish2 .fish-tail {
+            position: absolute; left: -15px; top: 17px; width: 0; height: 0;
+            border-top: 10px solid transparent; border-bottom: 10px solid transparent;
+            border-left: 18px solid #38bdf8;
+            animation: tailWag 0.5s ease-in-out infinite alternate;
+        }
 
         @keyframes swim2 {
-            0%   { left: 820px; top: 250px; transform: scaleX(-1); }
-            49.9%{ left: 20px;  top: 180px; transform: scaleX(-1); }
-            50%  { left: 20px;  top: 180px; transform: scaleX(1); }
-            99.9%{ left: 820px; top: 250px; transform: scaleX(1); }
-            100% { left: 820px; top: 250px; transform: scaleX(-1); }
+            0%   { left: 820px; top: 240px; transform: scaleX(-1); }
+            49.9%{ left: 20px;  top: 170px; transform: scaleX(-1); }
+            50%  { left: 20px;  top: 170px; transform: scaleX(1); }
+            99.9%{ left: 820px; top: 240px; transform: scaleX(1); }
+            100% { left: 820px; top: 240px; transform: scaleX(-1); }
         }
 
-        /* ===== FISH 3 - Red ===== */
-        #fish3 { animation: swim3 10s linear infinite; }
+        /* ===== SPECIES 3: CÁ MẬP NHỎ (BABY SHARK) ===== */
+        #fish3 { animation: swim3 11s linear infinite; }
         #fish3 .fish-body {
-            background: linear-gradient(135deg, #dc2626, #f87171, #b91c1c);
-            width: 45px; height: 22px;
+            position: relative; width: 80px; height: 28px;
+            background: linear-gradient(180deg, #334155 0%, #64748b 55%, #f1f5f9 60%, #f8fafc 100%);
+            border-radius: 60% 40% 35% 60% / 60% 50% 50% 60%;
+            animation: bodyWobble 1.5s ease-in-out infinite;
         }
-        #fish3 .fish-body::before { top: 4px; left: 32px; width: 6px; height: 6px; }
-        #fish3 .fish-body::after { top: 10px; left: 41px; }
-        #fish3 .fish-tail { color: #dc2626; border-left-width: 13px; border-top-width: 9px; border-bottom-width: 9px; }
-        #fish3 .fish-fin-top { color: #b91c1c; }
-        #fish3 .fish-fin-side { color: #b91c1c; }
+        /* Fierce eye */
+        #fish3 .fish-body::before {
+            content: ''; position: absolute; width: 7px; height: 7px;
+            background: #000; border-radius: 50%; top: 8px; left: 62px; z-index: 2;
+            box-shadow: 0 0 2px #fff;
+        }
+        /* Shark Gill slits */
+        #fish3 .fish-body::after {
+            content: ''; position: absolute; width: 10px; height: 10px;
+            border-right: 2px solid #334155; border-left: 2px solid #334155;
+            top: 9px; left: 45px; opacity: 0.6;
+        }
+        /* Sharp Shark Dorsal Fin */
+        #fish3 .fish-fin-top {
+            position: absolute; top: -20px; left: 30px; width: 0; height: 0;
+            border-left: 15px solid transparent; border-right: 8px solid transparent;
+            border-bottom: 22px solid #334155; transform: rotate(-10deg);
+        }
+        #fish3 .fish-fin-side {
+            position: absolute; bottom: -8px; left: 35px; width: 0; height: 0;
+            border-left: 10px solid transparent; border-right: 6px solid transparent;
+            border-top: 12px solid #475569;
+        }
+        /* Forked Shark Tail */
+        #fish3 .fish-tail {
+            position: absolute; left: -18px; top: -4px; width: 0; height: 0;
+            border-top: 18px solid transparent; border-bottom: 18px solid transparent;
+            border-left: 22px solid #334155;
+            clip-path: polygon(0 0, 100% 50%, 0 100%, 40% 50%);
+            animation: tailWag 0.3s ease-in-out infinite alternate;
+        }
 
         @keyframes swim3 {
-            0%   { left: 400px; top: 350px; transform: scaleX(1); }
-            25%  { left: 820px; top: 300px; transform: scaleX(1); }
-            25.1%{ left: 820px; top: 300px; transform: scaleX(-1); }
-            75%  { left: 20px; top: 370px; transform: scaleX(-1); }
-            75.1%{ left: 20px; top: 370px; transform: scaleX(1); }
-            99.9%{ left: 400px; top: 350px; transform: scaleX(1); }
-            100% { left: 400px; top: 350px; transform: scaleX(1); }
+            0%   { left: 400px; top: 340px; transform: scaleX(1); }
+            25%  { left: 810px; top: 290px; transform: scaleX(1); }
+            25.1%{ left: 810px; top: 290px; transform: scaleX(-1); }
+            75%  { left: 20px; top: 360px; transform: scaleX(-1); }
+            75.1%{ left: 20px; top: 360px; transform: scaleX(1); }
+            99.9%{ left: 400px; top: 340px; transform: scaleX(1); }
+            100% { left: 400px; top: 340px; transform: scaleX(1); }
         }
 
-        /* ===== FISH 4 - Purple/Pink ===== */
-        #fish4 { animation: swim4 18s linear infinite; }
+        /* ===== SPECIES 4: CÁ NÓC TRÒN (PUFFERFISH) ===== */
+        #fish4 { animation: swim4 19s linear infinite; }
         #fish4 .fish-body {
-            background: linear-gradient(135deg, #9333ea, #c084fc, #7e22ce);
-            width: 55px; height: 28px;
+            position: relative; width: 45px; height: 42px;
+            background: radial-gradient(circle at 30% 30%, #fef08a 20%, #eab308 60%, #ca8a04 100%);
+            border-radius: 50%;
+            box-shadow: inset -3px -3px 6px rgba(0,0,0,0.2);
+            animation: pufferPuff 1.8s ease-in-out infinite alternate;
         }
-        #fish4 .fish-body::before { top: 6px; left: 40px; width: 7px; height: 7px; }
-        #fish4 .fish-body::after { top: 14px; left: 50px; }
-        #fish4 .fish-tail { color: #9333ea; }
-        #fish4 .fish-fin-top { color: #7e22ce; }
-        #fish4 .fish-fin-side { color: #7e22ce; }
+        @keyframes pufferPuff {
+            0% { transform: scale(0.95); }
+            100% { transform: scale(1.08); }
+        }
+        /* Big Cute Eye */
+        #fish4 .fish-body::before {
+            content: ''; position: absolute; width: 11px; height: 11px;
+            background: #fff; border-radius: 50%; top: 8px; left: 26px; z-index: 2;
+            box-shadow: inset 3px 1px 0 3px #000;
+        }
+        /* Small pout mouth */
+        #fish4 .fish-body::after {
+            content: ''; position: absolute; width: 6px; height: 6px;
+            background: #f43f5e; border-radius: 50%; top: 20px; left: 39px;
+        }
+        #fish4 .fish-fin-top {
+            position: absolute; top: -6px; left: 12px; width: 10px; height: 8px;
+            background: #ca8a04; border-radius: 50% 50% 0 0;
+        }
+        #fish4 .fish-fin-side {
+            position: absolute; bottom: 8px; left: 10px; width: 10px; height: 8px;
+            background: #ca8a04; border-radius: 50%; animation: tailWag 0.2s infinite;
+        }
+        #fish4 .fish-tail {
+            position: absolute; left: -10px; top: 14px; width: 0; height: 0;
+            border-top: 7px solid transparent; border-bottom: 7px solid transparent;
+            border-left: 12px solid #eab308;
+            animation: tailWag 0.2s linear infinite alternate;
+        }
 
         @keyframes swim4 {
-            0%   { left: 150px; top: 200px; transform: scaleX(1); }
-            30%  { left: 820px; top: 120px; transform: scaleX(1); }
-            30.1%{ left: 820px; top: 120px; transform: scaleX(-1); }
-            80%  { left: 20px;  top: 300px; transform: scaleX(-1); }
-            80.1%{ left: 20px;  top: 300px; transform: scaleX(1); }
-            99.9%{ left: 150px; top: 200px; transform: scaleX(1); }
-            100% { left: 150px; top: 200px; transform: scaleX(1); }
+            0%   { left: 150px; top: 190px; transform: scaleX(1); }
+            30%  { left: 820px; top: 110px; transform: scaleX(1); }
+            30.1%{ left: 820px; top: 110px; transform: scaleX(-1); }
+            80%  { left: 20px;  top: 290px; transform: scaleX(-1); }
+            80.1%{ left: 20px;  top: 290px; transform: scaleX(1); }
+            99.9%{ left: 150px; top: 190px; transform: scaleX(1); }
+            100% { left: 150px; top: 190px; transform: scaleX(1); }
         }
 
-        /* ===== FISH 5 - Green small ===== */
-        #fish5 { animation: swim5 9s linear infinite; }
+        /* ===== SPECIES 5: CÁ BẢY MÀU / BETTA (FANCY BUTTERFLY TAIL) ===== */
+        #fish5 { animation: swim5 10s linear infinite; }
         #fish5 .fish-body {
-            background: linear-gradient(135deg, #16a34a, #4ade80, #15803d);
-            width: 38px; height: 18px;
+            position: relative; width: 40px; height: 20px;
+            background: linear-gradient(135deg, #ec4899, #a855f7, #6366f1);
+            border-radius: 50% 40% 40% 50% / 50% 50% 50% 50%;
+            animation: bodyWobble 1.6s ease-in-out infinite;
         }
-        #fish5 .fish-body::before { top: 3px; left: 26px; width: 5px; height: 5px; }
-        #fish5 .fish-body::after { top: 8px; left: 34px; width: 3px; height: 2px; }
-        #fish5 .fish-tail { color: #16a34a; border-left-width: 11px; border-top-width: 7px; border-bottom-width: 7px; left: -10px; top: 2px; }
-        #fish5 .fish-fin-top { color: #15803d; top: -5px; left: 14px; border-bottom-width: 8px; }
-        #fish5 .fish-fin-side { color: #15803d; left: 16px; border-top-width: 6px; }
+        #fish5 .fish-body::before {
+            content: ''; position: absolute; width: 6px; height: 6px;
+            background: #fff; border-radius: 50%; top: 4px; left: 28px; z-index: 2;
+            box-shadow: inset 2px 0 0 1px #000;
+        }
+        /* Giant Flowing Butterfly Tail */
+        #fish5 .fish-tail {
+            position: absolute; left: -32px; top: -14px;
+            width: 38px; height: 42px;
+            background: linear-gradient(135deg, rgba(236,72,153,0.85), rgba(168,85,247,0.75), rgba(99,102,241,0.6));
+            border-radius: 80% 0 80% 80%;
+            transform-origin: right center;
+            animation: bettaTail 0.6s ease-in-out infinite alternate;
+            box-shadow: 0 0 10px rgba(236,72,153,0.4);
+        }
+        @keyframes bettaTail {
+            0% { transform: rotate(-15deg) scaleY(0.9); }
+            100% { transform: rotate(15deg) scaleY(1.1); }
+        }
+        #fish5 .fish-fin-top {
+            position: absolute; top: -12px; left: 10px; width: 18px; height: 14px;
+            background: rgba(236,72,153,0.7); border-radius: 80% 80% 0 0;
+        }
+        #fish5 .fish-fin-side {
+            position: absolute; bottom: -10px; left: 12px; width: 14px; height: 12px;
+            background: rgba(168,85,247,0.7); border-radius: 0 0 80% 80%;
+        }
 
         @keyframes swim5 {
-            0%   { left: 600px; top: 160px; transform: scaleX(-1); }
-            30%  { left: 20px; top: 100px; transform: scaleX(-1); }
-            30.1%{ left: 20px; top: 100px; transform: scaleX(1); }
-            80%  { left: 820px; top: 250px; transform: scaleX(1); }
-            80.1%{ left: 820px; top: 250px; transform: scaleX(-1); }
-            99.9%{ left: 600px; top: 160px; transform: scaleX(-1); }
-            100% { left: 600px; top: 160px; transform: scaleX(-1); }
+            0%   { left: 600px; top: 150px; transform: scaleX(-1); }
+            30%  { left: 20px; top: 90px;  transform: scaleX(-1); }
+            30.1%{ left: 20px; top: 90px;  transform: scaleX(1); }
+            80%  { left: 820px; top: 240px; transform: scaleX(1); }
+            80.1%{ left: 820px; top: 240px; transform: scaleX(-1); }
+            99.9%{ left: 600px; top: 150px; transform: scaleX(-1); }
+            100% { left: 600px; top: 150px; transform: scaleX(-1); }
         }
 
         /* ===== FLOAT ANIMATION for fish ===== */
